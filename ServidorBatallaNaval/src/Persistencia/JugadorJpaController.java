@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-
+import javax.persistence.PersistenceException;
 /**
  *
  * @author Irdevelo
@@ -93,13 +93,13 @@ public class JugadorJpaController implements Serializable {
             List<String> illegalOrphanMessages = null;
             if (puntajeOld != null && !puntajeOld.equals(puntajeNew)) {
                 if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
+                    illegalOrphanMessages = new ArrayList<>();
                 }
                 illegalOrphanMessages.add("You must retain Puntaje " + puntajeOld + " since its jugador field is not nullable.");
             }
             if (partidaOld != null && !partidaOld.equals(partidaNew)) {
                 if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
+                    illegalOrphanMessages = new ArrayList<>();
                 }
                 illegalOrphanMessages.add("You must retain Partida " + partidaOld + " since its jugador field is not nullable.");
             }
@@ -166,14 +166,14 @@ public class JugadorJpaController implements Serializable {
             Puntaje puntajeOrphanCheck = jugador.getPuntaje();
             if (puntajeOrphanCheck != null) {
                 if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
+                    illegalOrphanMessages = new ArrayList<>();
                 }
                 illegalOrphanMessages.add("This Jugador (" + jugador + ") cannot be destroyed since the Puntaje " + puntajeOrphanCheck + " in its puntaje field has a non-nullable jugador field.");
             }
             Partida partidaOrphanCheck = jugador.getPartida();
             if (partidaOrphanCheck != null) {
                 if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
+                    illegalOrphanMessages = new ArrayList<>();
                 }
                 illegalOrphanMessages.add("This Jugador (" + jugador + ") cannot be destroyed since the Partida " + partidaOrphanCheck + " in its partida field has a non-nullable jugador field.");
             }
@@ -234,5 +234,18 @@ public class JugadorJpaController implements Serializable {
             em.close();
         }
     }
-    
+
+    public void cambiarActivado(String jugador) {
+        String consulta = "UPDATE Jugador j SET j.estado = 1 WHERE j.nombreJugador = :jugador";
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.createQuery(consulta).setParameter("jugador", jugador).executeUpdate();
+            em.getTransaction().commit();
+        } catch (PersistenceException ex) {
+            em.getTransaction().getRollbackOnly();
+        } finally {
+            em.close();
+        }
+    }
 }
