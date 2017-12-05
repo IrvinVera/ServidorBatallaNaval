@@ -86,7 +86,7 @@ public class RMIServidor implements IJugador, IPuntaje, IPartida {
         try {
             jugadorControlador.create(jugadorNuevo);
             registrarJugadorEnTablaPuntaje(jugador.getNombreJugador());
-            registrarJugadorEnTablaPuntaje(jugador.getNombreJugador());
+            registrarJugadorEnTablaPartida(jugador.getNombreJugador());
         } catch (Exception ex) {
             usuarioRegistradoExitosamente = false;
             Logger.getLogger(Persistence.class.getName()).log(Level.SEVERE, null, ex);
@@ -109,14 +109,14 @@ public class RMIServidor implements IJugador, IPuntaje, IPartida {
     }
 
     public void registrarJugadorEnTablaPartida(String nombreJugador) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ServidorBatallaNvalPU", null);
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ServidorBatallaNavalPU", null);
         PartidaJpaController partidaJpaController = new PartidaJpaController(entityManagerFactory);
         Persistencia.Partida registrarPartidas = new Persistencia.Partida();
         Partida partida = new Partida();
         partida.setNombreJugador(nombreJugador);
         partida.setPartidasGanadas(0);
         partida.setPartidasPerdidas(0);
-        
+
         try {
             partidaJpaController.create(partida);
         } catch (Exception ex) {
@@ -163,13 +163,23 @@ public class RMIServidor implements IJugador, IPuntaje, IPartida {
     }
 
     @Override
-    public void actualizarPartidasGanadas() throws RemoteException {
-
+    public void actualizarPartidasGanadas(String nombreJugador) throws RemoteException {
+        int partidasGanadasActuales;
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ServidorBatallaNavalPU", null);
+        PartidaJpaController partidaControlador = new PartidaJpaController(entityManagerFactory);
+        partidasGanadasActuales = partidaControlador.obtenerPartidasGanadas(nombreJugador);
+        partidasGanadasActuales++;
+        partidaControlador.actualizarPartidasGanadas(partidasGanadasActuales, nombreJugador);
     }
 
     @Override
-    public void actualizarPartidasPerdidas() throws RemoteException {
-
+    public void actualizarPartidasPerdidas(String nombreJugador) throws RemoteException {
+        int partidasPerdidasActuales;
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ServidorBatallaNavalPU", null);
+        PartidaJpaController partidaControlador = new PartidaJpaController(entityManagerFactory);
+        partidasPerdidasActuales = partidaControlador.obtenerPartidasPerdidas(nombreJugador);
+        partidasPerdidasActuales++;
+        partidaControlador.actualizarPartidasPerdidas(partidasPerdidasActuales, nombreJugador);
     }
 
 }

@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceException;
 
 /**
  *
@@ -198,4 +199,57 @@ public class PartidaJpaController implements Serializable {
         }
     }
 
+    public int obtenerPartidasGanadas(String nombreJugador) {
+        Object partidasGanadas;
+        int ganadas = 0;
+        String consulta = "Select p.partidasGanadas from Partida p where p.nombreJugador = :nombreJugador";
+        EntityManager em = getEntityManager();
+        try {
+            partidasGanadas = em.createQuery(consulta).setParameter("nombreJugador", nombreJugador).getSingleResult();
+            ganadas = Integer.parseInt(String.valueOf(partidasGanadas));
+        } finally {
+            em.close();
+        }
+        return ganadas;
+    }
+
+    public int obtenerPartidasPerdidas(String nombreJugador) {
+        Object partidasPerdidas;
+        int perdidas = 0;
+        String consulta = "Select p.partidasPerdidas from Partida p where p.nombreJugador = :nombreJugador";
+        EntityManager em = getEntityManager();
+        try {
+            partidasPerdidas = em.createQuery(consulta).setParameter("nombreJugador", nombreJugador).getSingleResult();
+            perdidas = Integer.parseInt(String.valueOf(partidasPerdidas));
+        } finally {
+            em.close();
+        }
+        return perdidas;
+    }
+
+    public void actualizarPartidasGanadas(int nuevasGanadas, String nombreJugador) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.createQuery("UPDATE Partida p SET p.partidasGanadas = '" + nuevasGanadas + "' where p.nombreJugador = '" + nombreJugador + "'").executeUpdate();
+            em.getTransaction().commit();
+        } catch (PersistenceException ex) {
+            em.getTransaction().getRollbackOnly();
+        } finally {
+            em.close();
+        }
+    }
+
+    public void actualizarPartidasPerdidas(int nuevasPerdidas, String nombreJugador) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.createQuery("UPDATE Partida p SET p.partidasPerdidas = '" + nuevasPerdidas + "' where p.nombreJugador = '" + nombreJugador + "'").executeUpdate();
+            em.getTransaction().commit();
+        } catch (PersistenceException ex) {
+            em.getTransaction().getRollbackOnly();
+        } finally {
+            em.close();
+        }
+    }
 }

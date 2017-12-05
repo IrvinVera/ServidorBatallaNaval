@@ -14,6 +14,6 @@ import java.rmi.RemoteException;
  */
 public interface IPartida extends Remote {
 
-    public void actualizarPartidasGanadas() throws RemoteException;
-    public void actualizarPartidasPerdidas() throws RemoteException;
+    public void actualizarPartidasGanadas(String nombreJugador) throws RemoteException;
+    public void actualizarPartidasPerdidas(String nombreJugador) throws RemoteException;
 }
