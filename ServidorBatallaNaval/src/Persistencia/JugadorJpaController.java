@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceException;
+
 /**
  *
  * @author Irdevelo
@@ -235,7 +235,7 @@ public class JugadorJpaController implements Serializable {
         }
     }
 
-    public void cambiarActivado(String jugador) {
+    /*   public void cambiarActivado(String jugador) {
         String consulta = "UPDATE Jugador j SET j.estado = 1 WHERE j.nombreJugador = :jugador";
         EntityManager em = getEntityManager();
         try {
@@ -247,5 +247,5 @@ public class JugadorJpaController implements Serializable {
         } finally {
             em.close();
         }
-    }
+    }*/
 }

@@ -96,5 +96,5 @@ public class Puntaje implements Serializable {
     public String toString() {
         return "Persistencia.Puntaje[ nombreJugador=" + nombreJugador + " ]";
     }
-    
+
 }

@@ -197,5 +197,5 @@ public class PartidaJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

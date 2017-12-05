@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceException;
 
 /**
  *
@@ -197,5 +198,32 @@ public class PuntajeJpaController implements Serializable {
             em.close();
         }
     }
-    
+
+    public int obtenerPuntajeActual(String nombreJugador) {
+        Object puntajeActual;
+        int puntaje = 0;
+        String consulta = "Select p.puntosTotales from Puntaje p where p.nombreJugador = :nombreJugador";
+        EntityManager em = getEntityManager();
+        try {
+            puntajeActual = em.createQuery(consulta).setParameter("nombreJugador", nombreJugador).getSingleResult();
+            puntaje = Integer.parseInt(String.valueOf(puntajeActual));
+        } finally {
+            em.close();
+        }
+        return puntaje;
+    }
+
+    public void actualizarPuntos(int puntosNuevos, String nombreJugador) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.createQuery("UPDATE Puntaje p SET p.puntosTotales = '" + puntosNuevos + "' where p.nombreJugador = '" + nombreJugador + "'").executeUpdate();
+            em.getTransaction().commit();
+        } catch (PersistenceException ex) {
+            em.getTransaction().getRollbackOnly();
+        } finally {
+            em.close();
+        }
+
+    }
 }

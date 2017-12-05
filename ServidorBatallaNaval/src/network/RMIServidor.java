@@ -7,6 +7,8 @@ package network;
 
 import negocio.Jugador;
 import Persistencia.JugadorJpaController;
+import Persistencia.Puntaje;
+import Persistencia.PuntajeJpaController;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -19,13 +21,14 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import servidorbatallanaval.ServidorBatallaNaval;
 import negocio.IJugador;
+import negocio.IPuntaje;
 
 /**
  *
  * @author Irdevelo
  */
-public class RMIServidor implements IJugador {
-    
+public class RMIServidor implements IJugador, IPuntaje {
+
     ArrayList<String> jugadoresConectados = new ArrayList<>();
 
     @Override
@@ -79,11 +82,26 @@ public class RMIServidor implements IJugador {
         jugadorNuevo.setApellidos(jugador.getApellidos());
         try {
             jugadorControlador.create(jugadorNuevo);
+            registrarJugadorEnTablaPuntaje(jugador.getNombreJugador());
         } catch (Exception ex) {
             usuarioRegistradoExitosamente = false;
             Logger.getLogger(Persistence.class.getName()).log(Level.SEVERE, null, ex);
         }
         return usuarioRegistradoExitosamente;
+    }
+
+    public void registrarJugadorEnTablaPuntaje(String nombreJugador) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ServidorBatallaNavalPU", null);
+        PuntajeJpaController puntajeJpaController = new PuntajeJpaController(entityManagerFactory);
+        Persistencia.Puntaje puntajeNuevo = new Persistencia.Puntaje();
+        Puntaje puntaje = new Puntaje();
+        puntaje.setNombreJugador(nombreJugador);
+        puntaje.setPuntosTotales(0);
+        try {
+            puntajeJpaController.create(puntaje);
+        } catch (Exception ex) {
+            Logger.getLogger(Persistence.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void iniciarServidor() {
@@ -92,23 +110,36 @@ public class RMIServidor implements IJugador {
             IJugador stub = (IJugador) UnicastRemoteObject.exportObject(servidor, 0);
             Registry registry = LocateRegistry.getRegistry("127.0.0.1");
             registry.bind("ServidorBatallaNaval", stub);
+
         } catch (RemoteException | AlreadyBoundException ex) {
-            Logger.getLogger(ServidorBatallaNaval.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServidorBatallaNaval.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
     public boolean verificarJugadorConectado(String nombreJugador) throws RemoteException {
         boolean jugadorConectado = false;
-        if(jugadoresConectados.contains(nombreJugador)){
+        if (jugadoresConectados.contains(nombreJugador)) {
             jugadorConectado = true;
-        }else{
+        } else {
             jugadoresConectados.add(nombreJugador);
         }
         return jugadorConectado;
     }
-    
-    public void desconectarJugador(String nombreJugador){
+
+    public void desconectarJugador(String nombreJugador) {
         jugadoresConectados.remove(nombreJugador);
     }
+
+    @Override
+    public void actualizarPuntajeJugador(int puntajeObtenido, String nombreJugador) throws RemoteException {
+        int puntajeActual;
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ServidorBatallaNavalPU", null);
+        PuntajeJpaController puntajeControlador = new PuntajeJpaController(entityManagerFactory);
+        puntajeActual = puntajeControlador.obtenerPuntajeActual(nombreJugador);
+        puntajeActual = puntajeActual + puntajeObtenido;
+        puntajeControlador.actualizarPuntos(puntajeActual, nombreJugador);
+    }
+
 }

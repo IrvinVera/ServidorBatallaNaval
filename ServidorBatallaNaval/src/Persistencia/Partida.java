@@ -107,5 +107,5 @@ public class Partida implements Serializable {
     public String toString() {
         return "Persistencia.Partida[ nombreJugador=" + nombreJugador + " ]";
     }
-    
+
 }
