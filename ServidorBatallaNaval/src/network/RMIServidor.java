@@ -7,6 +7,8 @@ package network;
 
 import negocio.Jugador;
 import Persistencia.JugadorJpaController;
+import Persistencia.Partida;
+import Persistencia.PartidaJpaController;
 import Persistencia.Puntaje;
 import Persistencia.PuntajeJpaController;
 import java.rmi.AlreadyBoundException;
@@ -21,13 +23,14 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import servidorbatallanaval.ServidorBatallaNaval;
 import negocio.IJugador;
+import negocio.IPartida;
 import negocio.IPuntaje;
 
 /**
  *
  * @author Irdevelo
  */
-public class RMIServidor implements IJugador, IPuntaje {
+public class RMIServidor implements IJugador, IPuntaje, IPartida {
 
     ArrayList<String> jugadoresConectados = new ArrayList<>();
 
@@ -83,6 +86,7 @@ public class RMIServidor implements IJugador, IPuntaje {
         try {
             jugadorControlador.create(jugadorNuevo);
             registrarJugadorEnTablaPuntaje(jugador.getNombreJugador());
+            registrarJugadorEnTablaPuntaje(jugador.getNombreJugador());
         } catch (Exception ex) {
             usuarioRegistradoExitosamente = false;
             Logger.getLogger(Persistence.class.getName()).log(Level.SEVERE, null, ex);
@@ -99,6 +103,22 @@ public class RMIServidor implements IJugador, IPuntaje {
         puntaje.setPuntosTotales(0);
         try {
             puntajeJpaController.create(puntaje);
+        } catch (Exception ex) {
+            Logger.getLogger(Persistence.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void registrarJugadorEnTablaPartida(String nombreJugador) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ServidorBatallaNvalPU", null);
+        PartidaJpaController partidaJpaController = new PartidaJpaController(entityManagerFactory);
+        Persistencia.Partida registrarPartidas = new Persistencia.Partida();
+        Partida partida = new Partida();
+        partida.setNombreJugador(nombreJugador);
+        partida.setPartidasGanadas(0);
+        partida.setPartidasPerdidas(0);
+        
+        try {
+            partidaJpaController.create(partida);
         } catch (Exception ex) {
             Logger.getLogger(Persistence.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -140,6 +160,16 @@ public class RMIServidor implements IJugador, IPuntaje {
         puntajeActual = puntajeControlador.obtenerPuntajeActual(nombreJugador);
         puntajeActual = puntajeActual + puntajeObtenido;
         puntajeControlador.actualizarPuntos(puntajeActual, nombreJugador);
+    }
+
+    @Override
+    public void actualizarPartidasGanadas() throws RemoteException {
+
+    }
+
+    @Override
+    public void actualizarPartidasPerdidas() throws RemoteException {
+
     }
 
 }

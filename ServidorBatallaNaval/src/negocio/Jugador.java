@@ -11,8 +11,8 @@ import java.io.Serializable;
  *
  * @author Irdevelo
  */
-public class Jugador implements Serializable{
-    
+public class Jugador implements Serializable {
+
     private String nombreJugador;
 
     private String contrasena;
@@ -61,5 +61,5 @@ public class Jugador implements Serializable{
 
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
-    }   
+    }
 }

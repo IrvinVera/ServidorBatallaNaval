@@ -11,10 +11,9 @@ import java.io.Serializable;
  *
  * @author Irdevelo
  */
-public class Puntaje implements Serializable{
-    
-    private int puntosTotales;
+public class Puntaje implements Serializable {
 
+    private int puntosTotales;
 
     public int getPuntosTotales() {
         return puntosTotales;
@@ -23,5 +22,5 @@ public class Puntaje implements Serializable{
     public void setPuntosTotales(int puntosTotales) {
         this.puntosTotales = puntosTotales;
     }
-    
+
 }

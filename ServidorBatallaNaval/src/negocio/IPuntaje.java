@@ -12,8 +12,8 @@ import java.rmi.RemoteException;
  *
  * @author Irdevelo
  */
-public interface IPuntaje extends Remote{
-    
-public void actualizarPuntajeJugador(int puntajeObtenido, String nombreJugador)throws RemoteException;   
-    
+public interface IPuntaje extends Remote {
+
+    public void actualizarPuntajeJugador(int puntajeObtenido, String nombreJugador) throws RemoteException;
+
 }
