@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  *
- * Interface que contiene los métodos remotos pertenecientes las partidas.
+ * Interfaz que contiene los métodos remotos pertenecientes las partidas.
  *
  * @author Irvin Dereb Vera López.
  * @author Israel Reyes Ozuna.
@@ -30,5 +30,4 @@ public interface IPuntaje extends Remote {
      * @return @throws RemoteException
      */
     public List<negocio.Puntaje> obtenerMejoresPuntajes() throws RemoteException;
-
 }

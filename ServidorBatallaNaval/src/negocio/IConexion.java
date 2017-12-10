@@ -4,7 +4,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**
- * Interface que contiene los métodos remotos para la conexión con el servidor
+ * Interfaz que contiene los métodos remotos para la conexión con el servidor
  * RMI.
  *
  * @author Irvin Dereb Vera López.

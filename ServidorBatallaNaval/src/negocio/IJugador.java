@@ -4,7 +4,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**
- * Interface que contiene los métodos remotos pertenecientes al Jugador.
+ * Interfaz que contiene los métodos remotos pertenecientes al Jugador.
  *
  * @author Irvin Dereb Vera López.
  * @author Israel Reyes Ozuna.
