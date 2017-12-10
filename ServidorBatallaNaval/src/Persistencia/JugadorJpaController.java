@@ -24,15 +24,29 @@ import javax.persistence.EntityManagerFactory;
  */
 public class JugadorJpaController implements Serializable {
 
+    /**
+     *
+     * @param emf
+     */
     public JugadorJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
+    /**
+     *
+     * @return
+     */
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    /**
+     *
+     * @param jugador
+     * @throws PreexistingEntityException
+     * @throws Exception
+     */
     public void create(Jugador jugador) throws PreexistingEntityException, Exception {
         EntityManager em = null;
         try {
@@ -80,6 +94,13 @@ public class JugadorJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param jugador
+     * @throws IllegalOrphanException
+     * @throws NonexistentEntityException
+     * @throws Exception
+     */
     public void edit(Jugador jugador) throws IllegalOrphanException, NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
@@ -150,6 +171,12 @@ public class JugadorJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @throws IllegalOrphanException
+     * @throws NonexistentEntityException
+     */
     public void destroy(String id) throws IllegalOrphanException, NonexistentEntityException {
         EntityManager em = null;
         try {
@@ -189,10 +216,20 @@ public class JugadorJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Jugador> findJugadorEntities() {
         return findJugadorEntities(true, -1, -1);
     }
 
+    /**
+     *
+     * @param maxResults
+     * @param firstResult
+     * @return
+     */
     public List<Jugador> findJugadorEntities(int maxResults, int firstResult) {
         return findJugadorEntities(false, maxResults, firstResult);
     }
@@ -213,6 +250,11 @@ public class JugadorJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Jugador findJugador(String id) {
         EntityManager em = getEntityManager();
         try {
@@ -222,6 +264,10 @@ public class JugadorJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getJugadorCount() {
         EntityManager em = getEntityManager();
         try {

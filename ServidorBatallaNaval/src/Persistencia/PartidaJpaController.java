@@ -25,15 +25,30 @@ import javax.persistence.PersistenceException;
  */
 public class PartidaJpaController implements Serializable {
 
+    /**
+     *
+     * @param emf
+     */
     public PartidaJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
+    /**
+     *
+     * @return
+     */
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    /**
+     *
+     * @param partida
+     * @throws IllegalOrphanException
+     * @throws PreexistingEntityException
+     * @throws Exception
+     */
     public void create(Partida partida) throws IllegalOrphanException, PreexistingEntityException, Exception {
         List<String> illegalOrphanMessages = null;
         Jugador jugadorOrphanCheck = partida.getJugador();
@@ -76,6 +91,13 @@ public class PartidaJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param partida
+     * @throws IllegalOrphanException
+     * @throws NonexistentEntityException
+     * @throws Exception
+     */
     public void edit(Partida partida) throws IllegalOrphanException, NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
@@ -127,6 +149,11 @@ public class PartidaJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @throws NonexistentEntityException
+     */
     public void destroy(String id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
@@ -153,10 +180,20 @@ public class PartidaJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Partida> findPartidaEntities() {
         return findPartidaEntities(true, -1, -1);
     }
 
+    /**
+     *
+     * @param maxResults
+     * @param firstResult
+     * @return
+     */
     public List<Partida> findPartidaEntities(int maxResults, int firstResult) {
         return findPartidaEntities(false, maxResults, firstResult);
     }
@@ -177,6 +214,11 @@ public class PartidaJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Partida findPartida(String id) {
         EntityManager em = getEntityManager();
         try {
@@ -186,6 +228,10 @@ public class PartidaJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPartidaCount() {
         EntityManager em = getEntityManager();
         try {
@@ -199,6 +245,11 @@ public class PartidaJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param nombreJugador
+     * @return
+     */
     public int obtenerPartidasGanadas(String nombreJugador) {
         Object partidasGanadas;
         int ganadas = 0;
@@ -213,6 +264,11 @@ public class PartidaJpaController implements Serializable {
         return ganadas;
     }
 
+    /**
+     *
+     * @param nombreJugador
+     * @return
+     */
     public int obtenerPartidasPerdidas(String nombreJugador) {
         Object partidasPerdidas;
         int perdidas = 0;
@@ -227,6 +283,11 @@ public class PartidaJpaController implements Serializable {
         return perdidas;
     }
 
+    /**
+     *
+     * @param nuevasGanadas
+     * @param nombreJugador
+     */
     public void actualizarPartidasGanadas(int nuevasGanadas, String nombreJugador) {
         EntityManager em = getEntityManager();
         try {
@@ -240,6 +301,11 @@ public class PartidaJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param nuevasPerdidas
+     * @param nombreJugador
+     */
     public void actualizarPartidasPerdidas(int nuevasPerdidas, String nombreJugador) {
         EntityManager em = getEntityManager();
         try {

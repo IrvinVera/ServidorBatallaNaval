@@ -44,41 +44,80 @@ public class Partida implements Serializable {
     @OneToOne(optional = false)
     private Jugador jugador;
 
+    /**
+     *
+     */
     public Partida() {
     }
 
+    /**
+     *
+     * @param nombreJugador
+     */
     public Partida(String nombreJugador) {
         this.nombreJugador = nombreJugador;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNombreJugador() {
         return nombreJugador;
     }
 
+    /**
+     *
+     * @param nombreJugador
+     */
     public void setNombreJugador(String nombreJugador) {
         this.nombreJugador = nombreJugador;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getPartidasGanadas() {
         return partidasGanadas;
     }
 
+    /**
+     *
+     * @param partidasGanadas
+     */
     public void setPartidasGanadas(Integer partidasGanadas) {
         this.partidasGanadas = partidasGanadas;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getPartidasPerdidas() {
         return partidasPerdidas;
     }
 
+    /**
+     *
+     * @param partidasPerdidas
+     */
     public void setPartidasPerdidas(Integer partidasPerdidas) {
         this.partidasPerdidas = partidasPerdidas;
     }
 
+    /**
+     *
+     * @return
+     */
     public Jugador getJugador() {
         return jugador;
     }
 
+    /**
+     *
+     * @param jugador
+     */
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
     }

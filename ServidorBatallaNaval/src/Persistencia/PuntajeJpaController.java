@@ -25,15 +25,30 @@ import javax.persistence.PersistenceException;
  */
 public class PuntajeJpaController implements Serializable {
 
+    /**
+     *
+     * @param emf
+     */
     public PuntajeJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
+    /**
+     *
+     * @return
+     */
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
+    /**
+     *
+     * @param puntaje
+     * @throws IllegalOrphanException
+     * @throws PreexistingEntityException
+     * @throws Exception
+     */
     public void create(Puntaje puntaje) throws IllegalOrphanException, PreexistingEntityException, Exception {
         List<String> illegalOrphanMessages = null;
         Jugador jugadorOrphanCheck = puntaje.getJugador();
@@ -76,6 +91,13 @@ public class PuntajeJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param puntaje
+     * @throws IllegalOrphanException
+     * @throws NonexistentEntityException
+     * @throws Exception
+     */
     public void edit(Puntaje puntaje) throws IllegalOrphanException, NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
@@ -127,6 +149,11 @@ public class PuntajeJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @throws NonexistentEntityException
+     */
     public void destroy(String id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
@@ -153,10 +180,20 @@ public class PuntajeJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Puntaje> findPuntajeEntities() {
         return findPuntajeEntities(true, -1, -1);
     }
 
+    /**
+     *
+     * @param maxResults
+     * @param firstResult
+     * @return
+     */
     public List<Puntaje> findPuntajeEntities(int maxResults, int firstResult) {
         return findPuntajeEntities(false, maxResults, firstResult);
     }
@@ -177,6 +214,11 @@ public class PuntajeJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Puntaje findPuntaje(String id) {
         EntityManager em = getEntityManager();
         try {
@@ -186,6 +228,10 @@ public class PuntajeJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getPuntajeCount() {
         EntityManager em = getEntityManager();
         try {
@@ -199,6 +245,11 @@ public class PuntajeJpaController implements Serializable {
         }
     }
 
+    /**
+     *
+     * @param nombreJugador
+     * @return
+     */
     public int obtenerPuntajeActual(String nombreJugador) {
         Object puntajeActual;
         int puntaje = 0;
@@ -213,6 +264,11 @@ public class PuntajeJpaController implements Serializable {
         return puntaje;
     }
 
+    /**
+     *
+     * @param puntosNuevos
+     * @param nombreJugador
+     */
     public void actualizarPuntos(int puntosNuevos, String nombreJugador) {
         EntityManager em = getEntityManager();
         try {
@@ -225,5 +281,39 @@ public class PuntajeJpaController implements Serializable {
             em.close();
         }
 
+    }
+    
+    /**
+     *
+     * @return
+     */
+    public List<negocio.Puntaje> obtenerPuntajesMaximos(){
+        List<negocio.Puntaje> mejoresPuntajes = null;
+        List<Persistencia.Puntaje> puntajes;
+        String consulta = "Select p from Puntaje p ORDER BY p.puntosTotales DESC";        
+        EntityManager em = getEntityManager();
+        try{
+            puntajes = em.createQuery(consulta).setMaxResults(3).getResultList();
+        }finally{
+            em.close();
+        }
+        
+        mejoresPuntajes = convertir(puntajes);
+        
+        return mejoresPuntajes;
+    }
+    
+    private List<negocio.Puntaje> convertir(List<Persistencia.Puntaje> puntajes){
+        List<negocio.Puntaje> mejoresPuntajes = new ArrayList();
+        negocio.Puntaje puntajeNe;
+        
+        for(Persistencia.Puntaje puntaje: puntajes){
+            puntajeNe = new negocio.Puntaje();
+            puntajeNe.setPuntosTotales(puntaje.getPuntosTotales());
+            puntajeNe.setNombreJugador(puntaje.getNombreJugador());
+            mejoresPuntajes.add(puntajeNe);
+        }
+        
+        return mejoresPuntajes;
     }
 }

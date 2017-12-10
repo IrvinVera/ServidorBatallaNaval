@@ -41,33 +41,64 @@ public class Puntaje implements Serializable {
     @OneToOne(optional = false)
     private Jugador jugador;
 
+    /**
+     *
+     */
     public Puntaje() {
     }
 
+    /**
+     *
+     * @param nombreJugador
+     */
     public Puntaje(String nombreJugador) {
         this.nombreJugador = nombreJugador;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNombreJugador() {
         return nombreJugador;
     }
 
+    /**
+     *
+     * @param nombreJugador
+     */
     public void setNombreJugador(String nombreJugador) {
         this.nombreJugador = nombreJugador;
     }
 
+    /**
+     *
+     * @return
+     */
     public Integer getPuntosTotales() {
         return puntosTotales;
     }
 
+    /**
+     *
+     * @param puntosTotales
+     */
     public void setPuntosTotales(Integer puntosTotales) {
         this.puntosTotales = puntosTotales;
     }
 
+    /**
+     *
+     * @return
+     */
     public Jugador getJugador() {
         return jugador;
     }
 
+    /**
+     *
+     * @param jugador
+     */
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
     }
