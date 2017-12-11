@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Persistencia;
 
 import java.io.Serializable;
@@ -19,7 +14,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Irdevelo
+ * @author Irvin Dereb Vera López.
+ * @author Israel Reyes Ozuna.
  */
 @Entity
 @Table(name = "puntaje")
@@ -41,64 +37,33 @@ public class Puntaje implements Serializable {
     @OneToOne(optional = false)
     private Jugador jugador;
 
-    /**
-     *
-     */
     public Puntaje() {
     }
 
-    /**
-     *
-     * @param nombreJugador
-     */
     public Puntaje(String nombreJugador) {
         this.nombreJugador = nombreJugador;
     }
 
-    /**
-     *
-     * @return
-     */
     public String getNombreJugador() {
         return nombreJugador;
     }
 
-    /**
-     *
-     * @param nombreJugador
-     */
     public void setNombreJugador(String nombreJugador) {
         this.nombreJugador = nombreJugador;
     }
 
-    /**
-     *
-     * @return
-     */
     public Integer getPuntosTotales() {
         return puntosTotales;
     }
 
-    /**
-     *
-     * @param puntosTotales
-     */
     public void setPuntosTotales(Integer puntosTotales) {
         this.puntosTotales = puntosTotales;
     }
 
-    /**
-     *
-     * @return
-     */
     public Jugador getJugador() {
         return jugador;
     }
 
-    /**
-     *
-     * @param jugador
-     */
     public void setJugador(Jugador jugador) {
         this.jugador = jugador;
     }
@@ -112,7 +77,7 @@ public class Puntaje implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+
         if (!(object instanceof Puntaje)) {
             return false;
         }

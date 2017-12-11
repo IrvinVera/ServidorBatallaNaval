@@ -2,23 +2,15 @@ package Persistencia.exceptions;
 
 /**
  *
- * @author Irdevelo
+ * @author Irvin Dereb Vera López.
+ * @author Israel Reyes Ozuna.
  */
 public class PreexistingEntityException extends Exception {
 
-    /**
-     *
-     * @param message
-     * @param cause
-     */
     public PreexistingEntityException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    /**
-     *
-     * @param message
-     */
     public PreexistingEntityException(String message) {
         super(message);
     }

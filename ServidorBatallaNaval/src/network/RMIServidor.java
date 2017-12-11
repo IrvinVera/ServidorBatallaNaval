@@ -42,7 +42,8 @@ public class RMIServidor implements IJugador, IPuntaje, IPartida, IConexion {
      * @param contrasena Contraseña del jugador para ingresar al sistema.
      * @return Un valor verdadero si el jugador esta registrado en el sistema o
      * un valor falso en caso de lo contrario.
-     * @throws RemoteException
+     * @throws RemoteException puede arrojar esta excepción si ocurre un fallo
+     * con el servidor RMI
      */
     @Override
     public boolean iniciarSesion(String nombreJugador, String contrasena) throws RemoteException {
@@ -69,7 +70,8 @@ public class RMIServidor implements IJugador, IPuntaje, IPartida, IConexion {
      * @param nombreJugador Clave del jugador para ingresar al sistema.
      * @return Un valor verdadero si el nombre de jugador ya fue registrado o un
      * valor falso en caso de lo contrario.
-     * @throws RemoteException
+     * @throws RemoteException puede arrojar esta excepción si ocurre un fallo
+     * con el servidor RMI
      */
     @Override
     public boolean verificarExistenciaCuenta(String nombreJugador) throws RemoteException {
@@ -96,7 +98,8 @@ public class RMIServidor implements IJugador, IPuntaje, IPartida, IConexion {
      * jugador.
      * @return Un verdadero si el jugador fue registrado con éxito o un valor
      * falso en caso de lo contrario.
-     * @throws RemoteException
+     * @throws RemoteException puede arrojar esta excepción si ocurre un fallo
+     * con el servidor RMI
      */
     @Override
     public boolean registrarJugador(Jugador jugador) throws RemoteException {
@@ -125,7 +128,7 @@ public class RMIServidor implements IJugador, IPuntaje, IPartida, IConexion {
      * Permite registrar un jugador en la tabla puntaje un vez que se registro
      * en el sistema.
      *
-     * @param nombreJugador
+     * @param nombreJugador Clave del jugador para ingresar al sistema.
      */
     public void registrarJugadorEnTablaPuntaje(String nombreJugador) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ServidorBatallaNavalPU", null);
@@ -144,7 +147,7 @@ public class RMIServidor implements IJugador, IPuntaje, IPartida, IConexion {
      * Permite registrar un jugador en la tabla partida un vez que se registro
      * en el sistema.
      *
-     * @param nombreJugador
+     * @param nombreJugador Clave del jugador para ingresar al sistema.
      */
     public void registrarJugadorEnTablaPartida(String nombreJugador) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("ServidorBatallaNavalPU", null);
@@ -182,7 +185,8 @@ public class RMIServidor implements IJugador, IPuntaje, IPartida, IConexion {
      * @param nombreJugador Clave del jugador para ingresar al sistema.
      * @return Un valor verdadero si el jugador se encuentra conectado o un
      * valor falso en caso de lo contrario
-     * @throws RemoteException
+     * @throws RemoteException puede arrojar esta excepción si ocurre un fallo
+     * con el servidor RMI
      */
     @Override
     public boolean verificarJugadorConectado(String nombreJugador) throws RemoteException {
@@ -202,7 +206,8 @@ public class RMIServidor implements IJugador, IPuntaje, IPartida, IConexion {
      * @param puntajeObtenido Valor obtenido de acuerdo a el triunfo o derrota
      * del jugador.
      * @param nombreJugador Clave del jugador para ingresar al sistema.
-     * @throws RemoteException
+     * @throws RemoteException puede arrojar esta excepción si ocurre un fallo
+     * con el servidor RMI
      */
     @Override
     public void actualizarPuntajeJugador(int puntajeObtenido, String nombreJugador) throws RemoteException {
@@ -219,7 +224,8 @@ public class RMIServidor implements IJugador, IPuntaje, IPartida, IConexion {
      * confrontación.
      *
      * @param nombreJugador Clave del jugador para ingresar al sistema.
-     * @throws RemoteException
+     * @throws RemoteException puede arrojar esta excepción si ocurre un fallo
+     * con el servidor RMI
      */
     @Override
     public void actualizarPartidasGanadas(String nombreJugador) throws RemoteException {
@@ -236,7 +242,8 @@ public class RMIServidor implements IJugador, IPuntaje, IPartida, IConexion {
      * confrontación.
      *
      * @param nombreJugador Clave del jugador para ingresar al sistema.
-     * @throws RemoteException
+     * @throws RemoteException puede arrojar esta excepción si ocurre un fallo
+     * con el servidor RMI
      */
     @Override
     public void actualizarPartidasPerdidas(String nombreJugador) throws RemoteException {
@@ -252,7 +259,8 @@ public class RMIServidor implements IJugador, IPuntaje, IPartida, IConexion {
      * Permite que un jugador cierre sesión.
      *
      * @param nombreJugador Clave del jugador para ingresar al sistema.
-     * @throws RemoteException
+     * @throws RemoteException puede arrojar esta excepción si ocurre un fallo
+     * con el servidor RMI
      */
     @Override
     public void cerrarSesion(String nombreJugador) throws RemoteException {
@@ -266,7 +274,9 @@ public class RMIServidor implements IJugador, IPuntaje, IPartida, IConexion {
     /**
      * Permite obtener el ranking de los 3 mejores puntajes.
      *
-     * @return @throws RemoteException
+     * @return Una lista con objetos de la clase Puntaje.
+     * @throws RemoteException puede arrojar esta excepción si ocurre un fallo
+     * con el servidor RMI
      */
     @Override
     public List<negocio.Puntaje> obtenerMejoresPuntajes() throws RemoteException {
@@ -282,7 +292,8 @@ public class RMIServidor implements IJugador, IPuntaje, IPartida, IConexion {
      *
      * @return Un valor verdadero si se establece la conexión con el servidor
      * RMI o un valor falso en caso de lo contrario
-     * @throws RemoteException
+     * @throws RemoteException puede arrojar esta excepción si ocurre un fallo
+     * con el servidor RMI
      */
     @Override
     public boolean obtenerIPRMI() throws RemoteException {

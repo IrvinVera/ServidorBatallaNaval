@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Persistencia;
 
 import java.io.Serializable;
@@ -19,7 +14,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Irdevelo
+ * @author Irvin Dereb Vera López.
+ * @author Israel Reyes Ozuna.
  */
 @Entity
 @Table(name = "jugador")
@@ -51,128 +47,65 @@ public class Jugador implements Serializable {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "jugador")
     private Partida partida;
 
-    /**
-     *
-     */
     public Jugador() {
     }
 
-    /**
-     *
-     * @param nombreJugador
-     */
     public Jugador(String nombreJugador) {
         this.nombreJugador = nombreJugador;
     }
 
-    /**
-     *
-     * @return
-     */
     public String getNombreJugador() {
         return nombreJugador;
     }
 
-    /**
-     *
-     * @param nombreJugador
-     */
     public void setNombreJugador(String nombreJugador) {
         this.nombreJugador = nombreJugador;
     }
 
-    /**
-     *
-     * @return
-     */
     public String getContrasena() {
         return contrasena;
     }
 
-    /**
-     *
-     * @param contrasena
-     */
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
 
-    /**
-     *
-     * @return
-     */
     public String getCorreo() {
         return correo;
     }
 
-    /**
-     *
-     * @param correo
-     */
     public void setCorreo(String correo) {
         this.correo = correo;
     }
 
-    /**
-     *
-     * @return
-     */
     public String getNombre() {
         return nombre;
     }
 
-    /**
-     *
-     * @param nombre
-     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    /**
-     *
-     * @return
-     */
     public String getApellidos() {
         return apellidos;
     }
 
-    /**
-     *
-     * @param apellidos
-     */
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
 
-    /**
-     *
-     * @return
-     */
     public Puntaje getPuntaje() {
         return puntaje;
     }
 
-    /**
-     *
-     * @param puntaje
-     */
     public void setPuntaje(Puntaje puntaje) {
         this.puntaje = puntaje;
     }
 
-    /**
-     *
-     * @return
-     */
     public Partida getPartida() {
         return partida;
     }
 
-    /**
-     *
-     * @param partida
-     */
     public void setPartida(Partida partida) {
         this.partida = partida;
     }
@@ -186,7 +119,7 @@ public class Jugador implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
+
         if (!(object instanceof Jugador)) {
             return false;
         }

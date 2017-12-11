@@ -17,7 +17,8 @@ public interface IConexion extends Remote {
      *
      * @return Un valor verdadero si se establece la conexión con el servidor
      * RMI o un valor falso en caso de lo contrario
-     * @throws RemoteException
+     * @throws RemoteException puede arrojar esta excepción si ocurre un fallo
+     * con el servidor RMI
      */
     public boolean obtenerIPRMI() throws RemoteException;
 

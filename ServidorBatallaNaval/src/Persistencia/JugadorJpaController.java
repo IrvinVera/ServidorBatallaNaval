@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Persistencia;
 
 import Persistencia.exceptions.IllegalOrphanException;
@@ -20,33 +15,20 @@ import javax.persistence.EntityManagerFactory;
 
 /**
  *
- * @author Irdevelo
+ * @author Irvin Dereb Vera López.
+ * @author Israel Reyes Ozuna.
  */
 public class JugadorJpaController implements Serializable {
 
-    /**
-     *
-     * @param emf
-     */
     public JugadorJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
 
-    /**
-     *
-     * @return
-     */
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
-    /**
-     *
-     * @param jugador
-     * @throws PreexistingEntityException
-     * @throws Exception
-     */
     public void create(Jugador jugador) throws PreexistingEntityException, Exception {
         EntityManager em = null;
         try {
@@ -94,13 +76,6 @@ public class JugadorJpaController implements Serializable {
         }
     }
 
-    /**
-     *
-     * @param jugador
-     * @throws IllegalOrphanException
-     * @throws NonexistentEntityException
-     * @throws Exception
-     */
     public void edit(Jugador jugador) throws IllegalOrphanException, NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
@@ -171,12 +146,6 @@ public class JugadorJpaController implements Serializable {
         }
     }
 
-    /**
-     *
-     * @param id
-     * @throws IllegalOrphanException
-     * @throws NonexistentEntityException
-     */
     public void destroy(String id) throws IllegalOrphanException, NonexistentEntityException {
         EntityManager em = null;
         try {
@@ -216,20 +185,10 @@ public class JugadorJpaController implements Serializable {
         }
     }
 
-    /**
-     *
-     * @return
-     */
     public List<Jugador> findJugadorEntities() {
         return findJugadorEntities(true, -1, -1);
     }
 
-    /**
-     *
-     * @param maxResults
-     * @param firstResult
-     * @return
-     */
     public List<Jugador> findJugadorEntities(int maxResults, int firstResult) {
         return findJugadorEntities(false, maxResults, firstResult);
     }
@@ -250,11 +209,6 @@ public class JugadorJpaController implements Serializable {
         }
     }
 
-    /**
-     *
-     * @param id
-     * @return
-     */
     public Jugador findJugador(String id) {
         EntityManager em = getEntityManager();
         try {
@@ -264,10 +218,6 @@ public class JugadorJpaController implements Serializable {
         }
     }
 
-    /**
-     *
-     * @return
-     */
     public int getJugadorCount() {
         EntityManager em = getEntityManager();
         try {
@@ -281,17 +231,4 @@ public class JugadorJpaController implements Serializable {
         }
     }
 
-    /*   public void cambiarActivado(String jugador) {
-        String consulta = "UPDATE Jugador j SET j.estado = 1 WHERE j.nombreJugador = :jugador";
-        EntityManager em = getEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.createQuery(consulta).setParameter("jugador", jugador).executeUpdate();
-            em.getTransaction().commit();
-        } catch (PersistenceException ex) {
-            em.getTransaction().getRollbackOnly();
-        } finally {
-            em.close();
-        }
-    }*/
 }

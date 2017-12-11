@@ -19,7 +19,8 @@ public interface IJugador extends Remote {
      * @param contrasena Contraseña del jugador para ingresar al sistema.
      * @return Un valor verdadero si el jugador esta registrado en el sistema o
      * un valor falso en caso de lo contrario.
-     * @throws RemoteException
+     * @throws RemoteException puede arrojar esta excepción si ocurre un fallo
+     * con el servidor RMI
      */
     public boolean iniciarSesion(String nombreJugador, String contrasena) throws RemoteException;
 
@@ -30,7 +31,8 @@ public interface IJugador extends Remote {
      * @param nombreJugador Clave del jugador para ingresar al sistema.
      * @return Un valor verdadero si el nombre de jugador ya fue registrado o un
      * valor falso en caso de lo contrario.
-     * @throws RemoteException
+     * @throws RemoteException puede arrojar esta excepción si ocurre un fallo
+     * con el servidor RMI
      */
     public boolean verificarExistenciaCuenta(String nombreJugador) throws RemoteException;
 
@@ -41,7 +43,8 @@ public interface IJugador extends Remote {
      * jugador.
      * @return Un verdadero si el jugador fue registrado con éxito o un valor
      * falso en caso de lo contrario.
-     * @throws RemoteException
+     * @throws RemoteException puede arrojar esta excepción si ocurre un fallo
+     * con el servidor RMI
      */
     public boolean registrarJugador(Jugador jugador) throws RemoteException;
 
@@ -51,7 +54,8 @@ public interface IJugador extends Remote {
      * @param nombreJugador Clave del jugador para ingresar al sistema.
      * @return Un valor verdadero si el jugador se encuentra conectado o un
      * valor falso en caso de lo contrario
-     * @throws RemoteException
+     * @throws RemoteException puede arrojar esta excepción si ocurre un fallo
+     * con el servidor RMI
      */
     public boolean verificarJugadorConectado(String nombreJugador) throws RemoteException;
 
@@ -59,7 +63,8 @@ public interface IJugador extends Remote {
      * Permite que un jugador cierre sesión.
      *
      * @param nombreJugador Clave del jugador para ingresar al sistema.
-     * @throws RemoteException
+     * @throws RemoteException puede arrojar esta excepción si ocurre un fallo
+     * con el servidor RMI
      */
     public void cerrarSesion(String nombreJugador) throws RemoteException;
 }
